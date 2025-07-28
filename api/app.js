@@ -34,7 +34,8 @@ const app = express();
 
 // CORS configuration - IMPORTANT: This must be before any other middleware
 
-const allowedOrigins = ['http://localhost:5173']
+//yha
+const allowedOrigins = [process.env.FRONTEND_URL]
 
 // First, set CORS headers manually for all responses, including error responses
 app.use((req, res, next) => {
