@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://campusbooks-api.onrender.com",
+        target: "https://inkcircle-host.onrender.com",
         changeOrigin: true,
         secure: false,
       },
