@@ -82,6 +82,10 @@ const Port = process.env.PORT || 3000
 app.listen(Port, () => {
   console.log(`Server is running at port ${Port}`)
 })
+// test
+app.get('/api/cors-test', (req, res) => {
+  res.json({ message: 'CORS is working!' });
+});
 
 app.get('/', (req, res) => {
   res.send('Hello from Study Sphere API')
