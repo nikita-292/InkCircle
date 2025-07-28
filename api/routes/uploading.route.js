@@ -13,7 +13,7 @@ const router = express.Router()
 
 // CORS Configuration
 const corsConfig = {
-  origin: 'http://localhost:5173',
+  origin: 'https://inkcircle.onrender.com',
   credentials: true,
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'credentials']
