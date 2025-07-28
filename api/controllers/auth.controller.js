@@ -79,7 +79,7 @@ export const signin = async (req, res, next) => {
 
       return res
         .cookie('token', token, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'None',
           maxAge: 3600000,
@@ -150,7 +150,7 @@ export const google = async (req, res, next) => {
 
       res
         .cookie('token', token, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'None',
           maxAge: 3600000, // 1 hour
@@ -185,7 +185,7 @@ export const google = async (req, res, next) => {
 
       res
         .cookie('token', token, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'None',
           maxAge: 3600000, // 1 hour

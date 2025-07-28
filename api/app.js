@@ -35,39 +35,48 @@ const app = express();
 // CORS configuration - IMPORTANT: This must be before any other middleware
 
 //yha
-const allowedOrigins = [process.env.FRONTEND_URL]
+// const allowedOrigins = [process.env.FRONTEND_URL]
 
-// First, set CORS headers manually for all responses, including error responses
-app.use((req, res, next) => {
-  const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin)
-  }
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization, credentials'
-  )
-  res.header('Access-Control-Allow-Credentials', 'true')
+// // First, set CORS headers manually for all responses, including error responses
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin
+//   if (allowedOrigins.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin)
+//   }
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Content-Type, Authorization, credentials'
+//   )
+//   res.header('Access-Control-Allow-Credentials', 'true')
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end()
-  }
+//   // Handle preflight requests
+//   if (req.method === 'OPTIONS') {
+//     return res.status(200).end()
+//   }
 
-  next()
-})
+//   next()
+// })
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+)
+
 
 // Then use other middleware
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-// Set Cross-Origin-Opener-Policy
-app.use((req, res, next) => {
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
-  next()
-})
+// // Set Cross-Origin-Opener-Policy
+// app.use((req, res, next) => {
+//   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
+//   next()
+// })
 
 const Port = process.env.PORT || 3000
 app.listen(Port, () => {
