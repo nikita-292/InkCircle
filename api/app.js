@@ -80,6 +80,7 @@ const app = express();
 // });
 app.use(cors({
   origin: 'https://inkcircle.onrender.com', // allow your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // allowed methods
   credentials: true // if you're sending cookies or headers
 }));
 
