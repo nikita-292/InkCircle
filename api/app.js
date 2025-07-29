@@ -5,7 +5,7 @@ dotenv.config()
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
-// Now you can use require
+// can use require
 const fs = require('fs')
 const coreJs = require('core-js')
 
@@ -58,26 +58,30 @@ const app = express();
 //   next()
 // })
 
-const allowedOrigins = [process.env.FRONTEND_URL]; // must match exactly
+// const allowedOrigins = [process.env.FRONTEND_URL]; // must match exactly
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin,X-Requested-With,Content-Type,Accept,Authorization'
-    );
-  }
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader('Access-Control-Allow-Origin', origin);
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+//     res.setHeader(
+//       'Access-Control-Allow-Headers',
+//       'Origin,X-Requested-With,Content-Type,Accept,Authorization'
+//     );
+//   }
 
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
+//   if (req.method === 'OPTIONS') {
+//     return res.sendStatus(200);
+//   }
 
-  next();
-});
+//   next();
+// });
+app.use(cors({
+  origin: 'https://inkcircle.onrender.com', // allow your frontend
+  credentials: true // if you're sending cookies or headers
+}));
 
 
 // Then use other middleware
@@ -101,7 +105,7 @@ app.get('/api/cors-test', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello from Study Sphere API')
+  res.send('Hello from Ink Circle API')
 })
 
 // Simple test endpoint to verify CORS is working
