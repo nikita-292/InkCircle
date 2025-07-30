@@ -34,7 +34,7 @@ const app = express();
 
 // CORS configuration - IMPORTANT: This must be before any other middleware
 
-const allowedOrigins = [process.env.FRONTEND_URL]
+const allowedOrigins = [process.env.FRONTEND_URL,'https://ink-circle.vercel.app']
 
 const corsOptions = {
   origin: function (origin, callback) {
