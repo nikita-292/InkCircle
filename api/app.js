@@ -34,67 +34,30 @@ const app = express();
 
 // CORS configuration - IMPORTANT: This must be before any other middleware
 
-//yha
-// const allowedOrigins = [process.env.FRONTEND_URL]
+const allowedOrigins = [process.env.FRONTEND_URL]
 
-// // First, set CORS headers manually for all responses, including error responses
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin
-//   if (allowedOrigins.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin)
-//   }
-//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Content-Type, Authorization, credentials'
-//   )
-//   res.header('Access-Control-Allow-Credentials', 'true')
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true)
+    } else {
+      return callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}
 
-//   // Handle preflight requests
-//   if (req.method === 'OPTIONS') {
-//     return res.status(200).end()
-//   }
-
-//   next()
-// })
-
-// const allowedOrigins = [process.env.FRONTEND_URL]; // must match exactly
-
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   if (allowedOrigins.includes(origin)) {
-//     res.setHeader('Access-Control-Allow-Origin', origin);
-//     res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-//     res.setHeader(
-//       'Access-Control-Allow-Headers',
-//       'Origin,X-Requested-With,Content-Type,Accept,Authorization'
-//     );
-//   }
-
-//   if (req.method === 'OPTIONS') {
-//     return res.sendStatus(200);
-//   }
-
-//   next();
-// });
-app.use(cors({
-  origin: 'https://inkcircle.onrender.com', // allow your frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // allowed methods
-  credentials: true // if you're sending cookies or headers
-}));
-
+app.use(cors(corsOptions))
 
 // Then use other middleware
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-// // Set Cross-Origin-Opener-Policy
-// app.use((req, res, next) => {
-//   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
-//   next()
-// })
 
 const Port = process.env.PORT || 3000
 app.listen(Port, () => {
