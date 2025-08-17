@@ -13,7 +13,7 @@ const router = express.Router()
 
 // CORS Configuration
 const corsConfig = {
-  origin: 'https://inkcircle.onrender.com',
+  origin: 'https://ink-circle.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'credentials']
