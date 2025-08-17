@@ -96,7 +96,7 @@ const uploadToCloudinary = async (fileBuffer, originalname) => {
 
 export const booksUploading = async (req, res, next) => {
   // Set proper CORS headers
-  res.header("Access-Control-Allow-Origin", "https://inkcircle.onrender.com");
+  res.header("Access-Control-Allow-Origin", "https://ink-circle.vercel.app");
   res.header("Access-Control-Allow-Credentials", "true");
 
   try {
